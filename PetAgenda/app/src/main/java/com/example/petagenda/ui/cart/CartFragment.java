@@ -46,7 +46,8 @@ public class CartFragment extends Fragment {
                 for (Service s : serviceList) {
                     activity.getDb().ServiceDao().delete(s);
                 }
-                new CartAdapter(serviceList, ).checkout();
+                clearCart();
+                binding.rvCart.setAdapter(new CartAdapter(serviceList, null));
                 Toast.makeText(getActivity(), "Compra realizada com sucesso", Toast.LENGTH_LONG).show();
             }
         });
@@ -68,9 +69,13 @@ public class CartFragment extends Fragment {
         updateTotalValue(serviceList);
     }
 
+    private void clearCart() {
+        serviceList.clear();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
+}
 }
